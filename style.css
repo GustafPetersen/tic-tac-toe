@@ -29,9 +29,19 @@ body {
     height: 650px;
 }
 .player-square {
+    margin: 0.125px;
     border: 1px solid black;
     border-radius: 2.5px;
+    display: flex;
+    flex: 0 2 10%;
+    align-items: center;
+    justify-content: center;
 }
+.imgOne, .imgTwo {
+    width: 75%;
+    height: 75%;
+}
+
 .player-square:hover {
     background-color: #00000046;
     background: linear-gradient(45deg, #acf7c016 30%, #89ff8913);

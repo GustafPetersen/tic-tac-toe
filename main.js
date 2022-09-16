@@ -1,24 +1,31 @@
-const gameBoard = () => {
-    const selectSquare = () => {
-        // selects the square that the player has chosen
-        return;
+const playerSelect = (player, playerSymbol) => {
+        return {player, playerSymbol};
+}
+
+
+
+
+// -------------------------------* GAME ENGINE *-------------------------------
+const gameEngine = () => {
+    const startGame = () => {
+        if (playerTurn.whichRound <= 1) {
+            // create dialogue box for player selection options
+            return null
+        }
+    const endGame = () => {
+        // create dialogue box that declares that the game is over
+        return null
+    } 
+    const checkScore = () => {
+        // checks the score in an array for each turn.
+        // if there are three in a row for either the vertical, horizontal, or diagonal
+        // then the game is over.
+    }   
     }
-    
-    const squareArray = document.body.querySelectorAll(".player-square")
-    squareArray.forEach(element => {
-        gameArray.push(element, null)
-    });
-    let gameArray = [];
-    return gameArray;
-
+    return null
 }
 
-const playerSelect = (playerName, playerSymbol) => {
-        return {playerName, playerSymbol};
-}
-
-
-
+// -------------------------------* APPEND ICONS *-------------------------------
 // Rewrite as a factory function
 // 
 const addIconToBox = ((item) => {
@@ -43,7 +50,7 @@ const addIconToBox = ((item) => {
     }
 })();
 
-
+// ----------------------------------* DECIDE TURN *----------------------------------
 const playerTurn = ((item) => {
     var whichRound = 1;
     const decideTurn = (() => {
@@ -68,6 +75,7 @@ const playerTurn = ((item) => {
         }
     })();
 
+// -------------------------------* GAME INTERACTION *-------------------------------
 // eventlistener, when a square is clicked, it will be populated by an X or O icon.
 const squareSelector = document.body.querySelectorAll(".player-square")
 // console.log(squareSelector);
@@ -91,7 +99,15 @@ squareSelector.forEach(item => item.addEventListener('click', (e) => {
         }
     } else {
         console.log("Game Over")
+        gameEngine.gameOver()
     }
-
 })
 )
+
+
+// AND LAST
+
+// -------------------------------* AI ENGINE *-------------------------------
+
+
+gameEngine.startGame()

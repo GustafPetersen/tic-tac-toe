@@ -3,8 +3,8 @@ html {
     padding: 0;
     width: 100%;
     height: 100%;
-    background: rgb(13,36,0);
-    background: linear-gradient(338deg, #0d2400 0%, #466b22 35%, #a7a724 100%);
+    background: #000067;
+    background: linear-gradient(338deg, #000067 1.25%, #000067be 25%, #00006790 75%, #950095 110%);
 
 }
 body {
@@ -12,6 +12,7 @@ body {
     justify-content: center;
     align-content: center;
     flex-flow: column wrap;
+    align-items: center;
 }
 
 #page-header {
@@ -19,14 +20,15 @@ body {
     padding: 1.25%;
     color: black;
     text-shadow: black;
-
+    justify-self: center;
+    align-self: center;
 }
 
 #tic-tac-toe {
     display: grid;
     grid-template: repeat(3, minmax(0, 1fr)) / repeat(3, minmax(0, 1fr));
-    width: 650px;
-    height: 650px;
+    width: 450px;
+    height: 450px;
 }
 .player-square {
     margin: 0.125px;
@@ -45,4 +47,36 @@ body {
 .player-square:hover {
     background-color: #00000046;
     background: linear-gradient(45deg, #acf7c016 30%, #89ff8913);
+}
+
+.playerSelection {
+    margin: 5px;
+    display: flex;
+    width: 200px;
+    height: 100px;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+
+}
+.players {
+    margin: 5px;
+    opacity: 0.75;
+    width: 50px;
+    height: 50px;
+    border: none;
+}
+.players:hover {
+
+}
+#player1 {
+    background: url(icons/x.png);
+    overflow: hidden;
+    background-size: contain;
+}
+#player2{
+    background: url(icons/o.png);
+    background-size: contain;
+
 }

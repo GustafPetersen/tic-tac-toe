@@ -70,12 +70,12 @@ body {
 .players:hover {
 
 }
-#player1 {
+#X {
     background: url(icons/x.png);
     overflow: hidden;
     background-size: contain;
 }
-#player2{
+#O{
     background: url(icons/o.png);
     background-size: contain;
 

@@ -2,28 +2,28 @@ const playerSelect = (player, playerSymbol) => {
         return {player, playerSymbol};
 }
 
+let humanPlayer;
+let computerPlayer;
 
-
-
-// -------------------------------* GAME ENGINE *-------------------------------
-const gameEngine = () => {
-    const startGame = () => {
-        if (playerTurn.whichRound <= 1) {
-            // create dialogue box for player selection options
-            return null
-        }
-    const endGame = () => {
-        // create dialogue box that declares that the game is over
-        return null
-    } 
-    const checkScore = () => {
-        // checks the score in an array for each turn.
-        // if there are three in a row for either the vertical, horizontal, or diagonal
-        // then the game is over.
-    }   
+const selectPlayerButtons = document.body.querySelectorAll(".players")
+selectPlayerButtons.forEach(item => item.addEventListener('click', (e) => {
+    humanPlayer = playerSelect(item.id, "humanplayer")
+    if (humanPlayer.player === "X") {
+        computerPlayer = playerSelect(selectPlayerButtons[1].id, "computerplayer")
+    } else {
+        computerPlayer = playerSelect(selectPlayerButtons[0].id, "computerplayer")
     }
-    return null
-}
+    console.log(humanPlayer)
+    // sconsole.log(computerPlayer)
+    return humanPlayer, computerPlayer
+}))
+
+
+
+
+
+
+
 
 // -------------------------------* APPEND ICONS *-------------------------------
 // Rewrite as a factory function
@@ -110,4 +110,22 @@ squareSelector.forEach(item => item.addEventListener('click', (e) => {
 // -------------------------------* AI ENGINE *-------------------------------
 
 
-gameEngine.startGame()
+// gameEngine.startGame()
+
+// -------------------------------* GAME ENGINE *-------------------------------
+const gameEngine = (() => {
+    const startGame = (() => {
+        let gameBoard = [];
+    const endGame = () => {
+        // create dialogue box that declares that the game is over
+        return null
+    } 
+    const checkScore = () => {
+        // checks the score in an array for each turn.
+        // if there are three in a row for either the vertical, horizontal, or diagonal
+        // then the game is over.
+    }   
+    return gameBoard
+    })()
+    return startGame
+})()

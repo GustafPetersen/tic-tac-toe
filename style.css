@@ -31,14 +31,29 @@ body {
     height: 450px;
 }
 .player-square {
-    margin: 0.125px;
     border: 1px solid black;
-    border-radius: 2.5px;
     display: flex;
     flex: 0 2 10%;
     align-items: center;
     justify-content: center;
 }
+
+.player-square:nth-child(-n + 3) {
+    border-top: none;
+}
+
+.player-square:nth-child(3n + 1) {
+    border-left: none;
+}
+
+.player-square:nth-child(3n + 3) {
+    border-right: none;
+}
+
+.player-square:nth-last-of-type(-n + 3) {
+    border-bottom: none;
+}
+
 .imgOne, .imgTwo {
     width: 75%;
     height: 75%;

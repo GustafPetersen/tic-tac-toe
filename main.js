@@ -14,10 +14,30 @@ selectPlayerButtons.forEach(item => item.addEventListener('click', (e) => {
         computerPlayer = playerSelect(selectPlayerButtons[0].id, "computerplayer")
     }
     console.log(humanPlayer)
+    console.log(computerPlayer)
     // sconsole.log(computerPlayer)
     return humanPlayer, computerPlayer
 }))
 
+// module for game logic array
+/*
+module functions should be triggered upon interaction by player
+When the player has chosen its tile,
+the index and the value of the index should be pushed into the array.
+Expected behavriour:
+Interaction adds up index and value to the array.
+
+*/
+
+const gameArray = ((player, symbol, dataValue) => {
+        const gameSequence = () => {
+            let sequenceArray = []
+            let obj = {player, symbol, dataValue}
+            sequenceArray.push(obj)
+            return sequenceArray
+        }
+    return gameSequence.sequenceArray
+})();
 
 
 
@@ -58,6 +78,7 @@ const playerTurn = ((item) => {
             return playerTurn.whichRound += 1,
             console.log(`The round is now: ${playerTurn.whichRound}`),
             addIconToBox.addXicon(item);
+            
         }
         const optionTwo = (item) => {
             return playerTurn.whichRound += 1,
@@ -90,9 +111,12 @@ squareSelector.forEach(item => item.addEventListener('click', (e) => {
         console.log(checkTurn)
         if (!checkTurn) {
             playerTurn.decideTurn.optionOne(item)
+            console.log(humanPlayer.playerSymbol, humanPlayer.player, item.getAttribute('data-value'))
+            gameArray(humanPlayer.playerSymbol, humanPlayer.player, item.getAttribute('data-value'))
             console.log(`Function returns: ${playerTurn.decideTurn} and marks an X.`)
         } else if (checkTurn) {
             playerTurn.decideTurn.optionTwo(item)
+            gameArray(computerPlayer.playerSymbol, computerPlayer.player, item.getAttribute('data-value'))
             console.log(`Function returns: ${playerTurn.decideTurn} and marks an 0.`)
         } else {
             console.log("The function is not getting a boolean properly ... it is getting: " + checkTurn)
@@ -115,7 +139,7 @@ squareSelector.forEach(item => item.addEventListener('click', (e) => {
 // -------------------------------* GAME ENGINE *-------------------------------
 const gameEngine = (() => {
     const startGame = (() => {
-        let gameBoard = [];
+        
     const endGame = () => {
         // create dialogue box that declares that the game is over
         return null
@@ -125,7 +149,7 @@ const gameEngine = (() => {
         // if there are three in a row for either the vertical, horizontal, or diagonal
         // then the game is over.
     }   
-    return gameBoard
+    // return gameBoard
     })()
     return startGame
 })()

@@ -46,6 +46,15 @@ const gameArray = (() => {
   return {gameSequence, sequenceArray};
 })();
 
+const duplicateCheck = (() => {
+    const checker = (item) => {
+        if(gameArray.sequenceArray.filter(arrItem => arrItem.dataValue === item.getAttribute("data-value"))){
+            console.log(`The ${item.getAttribute("data-value")} square has already been chosen`);
+        }
+    }
+        return checker
+    })();
+
 // -------------------------------* APPEND ICONS *-------------------------------
 // Rewrite as a factory function
 //
@@ -100,6 +109,7 @@ const playerTurn = ((item) => {
   };
 })();
 
+
 // -------------------------------* GAME INTERACTION *-------------------------------
 // eventlistener, when a square is clicked, it will be populated by an X or O icon.
 const squareSelector = document.body.querySelectorAll(".player-square");
@@ -120,11 +130,12 @@ squareSelector.forEach((item) =>
           humanPlayer.playerSymbol,
           humanPlayer.player,
           item.getAttribute("data-value")
-        );
+          );
         gameArray.gameSequence(
           humanPlayer.playerSymbol,
           humanPlayer.player,
-          item.getAttribute("data-value")
+          item.getAttribute("data-value"),
+          duplicateCheck.checker(item)
         );
         console.log(
           `Function returns: ${playerTurn.decideTurn} and marks an X.`
@@ -134,7 +145,8 @@ squareSelector.forEach((item) =>
         gameArray.gameSequence(
           computerPlayer.playerSymbol,
           computerPlayer.player,
-          item.getAttribute("data-value")
+          item.getAttribute("data-value"),
+          duplicateCheck.checker(item)
         );
         console.log(
           `Function returns: ${playerTurn.decideTurn} and marks an 0.`

@@ -28,15 +28,6 @@ selectPlayerButtons.forEach((item) =>
 );
 
 // module for game logic array
-/*
-module functions should be triggered upon interaction by player
-When the player has chosen its tile,
-the index and the value of the index should be pushed into the array.
-Expected behavriour:
-Interaction adds up index and value to the array.
-
-*/
-
 const gameArray = (() => {
   let sequenceArray = [];
   const gameSequence = (player, symbol, dataValue) => {
@@ -48,11 +39,19 @@ const gameArray = (() => {
 
 const duplicateCheck = (() => {
     const checker = (item) => {
-        if(gameArray.sequenceArray.filter(arrItem => arrItem.dataValue === item.getAttribute("data-value"))){
-            console.log(`The ${item.getAttribute("data-value")} square has already been chosen`);
+        if (gameArray.sequenceArray.length < 3) {
+          console.log(`The data value of the selected box: ${item.getAttribute("data-value")}`)
+          return false
         }
-    }
-        return checker
+        else if (gameArray.sequenceArray.filter(arrItem => arrItem.dataValue === item.getAttribute("data-value"))){
+            console.log(`The ${item.getAttribute("data-value")} square has already been chosen`);
+            return true
+        } else {
+          console.log(`The ${item.getAttribute("data-value")} square has not been chosen`);
+          return false
+        }
+    };
+        return {checker}
     })();
 
 // -------------------------------* APPEND ICONS *-------------------------------
@@ -119,47 +118,49 @@ squareSelector.forEach((item) =>
   item.addEventListener("click", (e) => {
     // if statement to determine which round and thus which players turn.
     // if uneven,  then X will play, and even rounds O will play.
-    console.log(`It's round no: ${playerTurn.whichRound}`);
+    // console.log(`It's round no: ${playerTurn.whichRound}`);
     let checkToPlay = playerTurn.whichRound <= 9;
     let checkTurn = playerTurn.whichRound % 2 === 0;
     if (checkToPlay) {
-      console.log(checkTurn);
-      if (!checkTurn) {
-        playerTurn.decideTurn.optionOne(item);
-        console.log(
-          humanPlayer.playerSymbol,
-          humanPlayer.player,
-          item.getAttribute("data-value")
+      if (!duplicateCheck.checker(item)) {
+        if (!checkTurn) {
+          playerTurn.decideTurn.optionOne(item);
+          console.log(
+            humanPlayer.playerSymbol,
+            humanPlayer.player,
+            item.getAttribute("data-value")
+            );
+          gameArray.gameSequence(
+            humanPlayer.playerSymbol,
+            humanPlayer.player,
+            item.getAttribute("data-value"),
           );
-        gameArray.gameSequence(
-          humanPlayer.playerSymbol,
-          humanPlayer.player,
-          item.getAttribute("data-value"),
-          duplicateCheck.checker(item)
-        );
-        console.log(
-          `Function returns: ${playerTurn.decideTurn} and marks an X.`
-        );
-      } else if (checkTurn) {
-        playerTurn.decideTurn.optionTwo(item);
-        gameArray.gameSequence(
-          computerPlayer.playerSymbol,
-          computerPlayer.player,
-          item.getAttribute("data-value"),
-          duplicateCheck.checker(item)
-        );
-        console.log(
-          `Function returns: ${playerTurn.decideTurn} and marks an 0.`
-        );
+          // console.log(
+          //   `Function returns: ${playerTurn.decideTurn} and marks an X.`
+          // );
+        } else if (checkTurn) {
+          playerTurn.decideTurn.optionTwo(item);
+          gameArray.gameSequence(
+            computerPlayer.playerSymbol,
+            computerPlayer.player,
+            item.getAttribute("data-value"),
+          );
+          console.log(
+            `Function returns: ${playerTurn.decideTurn} and marks an 0.`
+          );
+        } else {
+          console.log(
+            "The box has been selected before ... it is getting: " +
+              duplicateCheck.checker(item)
+          );
+        }
       } else {
-        console.log(
-          "The function is not getting a boolean properly ... it is getting: " +
-            checkTurn
-        );
+        console.log(`The box data value is: ${item.getAttribute("data-value")}, 
+        and the values for the items in the array are: ${gameArray.sequenceArray.filter(arrItem => arrItem.dataValue)}`)
       }
     } else {
       console.log("Game Over");
-      gameEngine.gameOver();
+      // gameEngine.gameOver();
     }
   })
 );

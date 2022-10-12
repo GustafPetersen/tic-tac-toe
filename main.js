@@ -38,6 +38,12 @@ const gameArray = (() => {
 })();
 
 const duplicateCheck = (() => {
+    // const latestPick = (item) => {
+    //   let userPick = item.getAttribute("data-value")
+    //   return userPick
+    // }
+    // let filteredArr = gameArray.sequenceArray.filter(arrItem => arrItem.dataValue)
+    
     const checker = (item) => {
         if (gameArray.sequenceArray.length < 3) {
           console.log(`The data value of the selected box: ${item.getAttribute("data-value")}`)

@@ -27,6 +27,8 @@ selectPlayerButtons.forEach((item) =>
   })
 );
 
+
+
 // module for game logic array
 const gameArray = (() => {
   let sequenceArray = [];
@@ -38,18 +40,9 @@ const gameArray = (() => {
 })();
 
 const duplicateCheck = (() => {
-    // const latestPick = (item) => {
-    //   let userPick = item.getAttribute("data-value")
-    //   return userPick
-    // }
-    // let filteredArr = gameArray.sequenceArray.filter(arrItem => arrItem.dataValue)
-    
     const checker = (item) => {
-        if (gameArray.sequenceArray.length < 3) {
-          console.log(`The data value of the selected box: ${item.getAttribute("data-value")}`)
-          return false
-        }
-        else if (gameArray.sequenceArray.filter(arrItem => arrItem.dataValue === item.getAttribute("data-value"))){
+        let doubleSelectionCheck = gameArray.sequenceArray.filter(arrItem => arrItem.dataValue.includes(item.getAttribute("data-value")))
+        if (doubleSelectionCheck.length >= 1){
             console.log(`The ${item.getAttribute("data-value")} square has already been chosen`);
             return true
         } else {
@@ -208,3 +201,22 @@ squareSelector.forEach((item) =>
 //   })();
 //   return {startGame, checkScore()};
 // })();
+
+const gameStatus = (() => {
+  const checkDiagonal = () => {
+    let diag = gameArray.gameSequence.filter(i => {
+      let iDv = i.dataValue;
+      let iS = i.symbol;
+      return iDv === "1" || iDv === "3" || iDv === "5"|| iDv === "7" || iDv === "9" 
+    })
+    
+
+  }
+  const checkHorizontal = () => {}
+  const checkVertical = () => {}
+  return {checkDiagonal, checkHorizontal, checkVertical}
+})();
+
+
+// gameArray.sequenceArray.filter(item => {
+//   return item.dataValue === "1" && item.symbol === "X" || "5" && item.symbol === "X" || "9" && item.symbol === "X"})

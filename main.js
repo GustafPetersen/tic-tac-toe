@@ -166,10 +166,6 @@ squareSelector.forEach((item) =>
 
 // AND LAST
 
-// -------------------------------* AI ENGINE *-------------------------------
-
-// gameEngine.startGame()
-
 // -------------------------------* GAME ENGINE *-------------------------------
 
 // const gameEngine = (() => {
@@ -203,18 +199,34 @@ squareSelector.forEach((item) =>
 // })();
 
 const gameStatus = (() => {
+  const checkSymbol = () => {
+    let symbX = () => {
+      gameArray.sequenceArray.filter(i => {
+        return i.symbol === "X"
+      })
+    }
+    let symbO = () => {
+      gameArray.sequenceArray.filter(i => {
+        return i.symbol === "O"
+      })
+    }
+    symbO()
+    symbX()
+    
+  }
   const checkDiagonal = () => {
-    let diag = gameArray.gameSequence.filter(i => {
+    let diag = gameArray.sequenceArray.filter(i => {
       let iDv = i.dataValue;
-      let iS = i.symbol;
+      // let iS = i.symbol;
       return iDv === "1" || iDv === "3" || iDv === "5"|| iDv === "7" || iDv === "9" 
     })
-    
-
+    let iDv = i.dataValue;
+    let diagOne
+    let diagTwo
   }
   const checkHorizontal = () => {}
   const checkVertical = () => {}
-  return {checkDiagonal, checkHorizontal, checkVertical}
+  return {checkSymbol, checkDiagonal, checkHorizontal, checkVertical}
 })();
 
 

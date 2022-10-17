@@ -22,12 +22,9 @@ selectPlayerButtons.forEach((item) =>
     }
     console.log(humanPlayer);
     console.log(computerPlayer);
-    // sconsole.log(computerPlayer)
     return humanPlayer, computerPlayer;
   })
 );
-
-
 
 // module for game logic array
 const gameArray = (() => {
@@ -36,22 +33,28 @@ const gameArray = (() => {
     let obj = { player, symbol, dataValue };
     return gameArray.sequenceArray.push(obj);
   };
-  return {gameSequence, sequenceArray};
+  return { gameSequence, sequenceArray };
 })();
 
 const duplicateCheck = (() => {
-    const checker = (item) => {
-        let doubleSelectionCheck = gameArray.sequenceArray.filter(arrItem => arrItem.dataValue.includes(item.getAttribute("data-value")))
-        if (doubleSelectionCheck.length >= 1){
-            console.log(`The ${item.getAttribute("data-value")} square has already been chosen`);
-            return true
-        } else {
-          console.log(`The ${item.getAttribute("data-value")} square has not been chosen`);
-          return false
-        }
-    };
-        return {checker}
-    })();
+  const checker = (item) => {
+    let doubleSelectionCheck = gameArray.sequenceArray.filter((arrItem) =>
+      arrItem.dataValue.includes(item.getAttribute("data-value"))
+    );
+    if (doubleSelectionCheck.length >= 1) {
+      console.log(
+        `The ${item.getAttribute("data-value")} square has already been chosen`
+      );
+      return true;
+    } else {
+      console.log(
+        `The ${item.getAttribute("data-value")} square has not been chosen`
+      );
+      return false;
+    }
+  };
+  return { checker };
+})();
 
 // -------------------------------* APPEND ICONS *-------------------------------
 // Rewrite as a factory function
@@ -107,7 +110,6 @@ const playerTurn = ((item) => {
   };
 })();
 
-
 // -------------------------------* GAME INTERACTION *-------------------------------
 // eventlistener, when a square is clicked, it will be populated by an X or O icon.
 const squareSelector = document.body.querySelectorAll(".player-square");
@@ -128,11 +130,11 @@ squareSelector.forEach((item) =>
             humanPlayer.playerSymbol,
             humanPlayer.player,
             item.getAttribute("data-value")
-            );
+          );
           gameArray.gameSequence(
             humanPlayer.playerSymbol,
             humanPlayer.player,
-            item.getAttribute("data-value"),
+            item.getAttribute("data-value")
           );
           // console.log(
           //   `Function returns: ${playerTurn.decideTurn} and marks an X.`
@@ -142,7 +144,7 @@ squareSelector.forEach((item) =>
           gameArray.gameSequence(
             computerPlayer.playerSymbol,
             computerPlayer.player,
-            item.getAttribute("data-value"),
+            item.getAttribute("data-value")
           );
           console.log(
             `Function returns: ${playerTurn.decideTurn} and marks an 0.`
@@ -155,7 +157,9 @@ squareSelector.forEach((item) =>
         }
       } else {
         console.log(`The box data value is: ${item.getAttribute("data-value")}, 
-        and the values for the items in the array are: ${gameArray.sequenceArray.filter(arrItem => arrItem.dataValue)}`)
+        and the values for the items in the array are: ${gameArray.sequenceArray.filter(
+          (arrItem) => arrItem.dataValue
+        )}`);
       }
     } else {
       console.log("Game Over");
@@ -200,35 +204,39 @@ squareSelector.forEach((item) =>
 
 const gameStatus = (() => {
   const checkSymbol = () => {
-    let symbX = () => {
-      gameArray.sequenceArray.filter(i => {
-        return i.symbol === "X"
-      })
-    }
-    let symbO = () => {
-      gameArray.sequenceArray.filter(i => {
-        return i.symbol === "O"
-      })
-    }
-    symbO()
-    symbX()
-    
-  }
+    let symbXSelect = gameArray.sequenceArray.filter((i) => {
+      i.symbol === "X";
+    });
+
+    let symbOSelect = gameArray.sequenceArray.filter(i => { return i.symbol === "O"})
+
+    let symbOArr = symbOSelect.forEach((e) => {
+      return symbOArr.push(e.dataValue);
+    });
+    let symbXArr = [];
+    symbXarr = symbXSelect.forEach((e) => {
+      symbXArr.push(e.dataValue);
+    });
+    console.log(`The positions of the O symbols are: ${symbOArr}}`);
+    console.log(`The positions of the X symbols are: ${symbXArr}}`);
+    return { symbXSelect, symbOSelect, symbOArr, symbXArr };
+  };
   const checkDiagonal = () => {
-    let diag = gameArray.sequenceArray.filter(i => {
+    let diag = gameArray.sequenceArray.filter((i) => {
       let iDv = i.dataValue;
       // let iS = i.symbol;
-      return iDv === "1" || iDv === "3" || iDv === "5"|| iDv === "7" || iDv === "9" 
-    })
+      return (
+        iDv === "1" || iDv === "3" || iDv === "5" || iDv === "7" || iDv === "9"
+      );
+    });
     let iDv = i.dataValue;
-    let diagOne
-    let diagTwo
-  }
-  const checkHorizontal = () => {}
-  const checkVertical = () => {}
-  return {checkSymbol, checkDiagonal, checkHorizontal, checkVertical}
+    let diagOne;
+    let diagTwo;
+  };
+  const checkHorizontal = () => {};
+  const checkVertical = () => {};
+  return { checkSymbol, checkDiagonal, checkHorizontal, checkVertical };
 })();
-
 
 // gameArray.sequenceArray.filter(item => {
 //   return item.dataValue === "1" && item.symbol === "X" || "5" && item.symbol === "X" || "9" && item.symbol === "X"})

@@ -82,7 +82,7 @@ const addIconToBox = ((item) => {
 
 // ----------------------------------* DECIDE TURN *----------------------------------
 const playerTurn = ((item) => {
-  var whichRound = 1;
+  let whichRound = 1;
   const decideTurn = (() => {
     const optionOne = (item) => {
       return (
@@ -109,6 +109,58 @@ const playerTurn = ((item) => {
     whichRound,
   };
 })();
+
+// -------------------------------* GAME ENGINE *-------------------------------
+
+//       /*
+//       Diagonal 1,5,9 && 3,5,7
+//       Row 1,2,3 && 4,5,6 && 7,8,9
+//       Column 1,4,7 && 2,5,8 && 3,6,9
+//       */
+
+const gameStatus = (() => {
+  const filterSymbol = () => {
+    let symbXSelect = gameArray.sequenceArray.filter((i) => {
+      return i.symbol === "X";
+    });
+    let symbOSelect = gameArray.sequenceArray.filter((i) => {
+      return i.symbol === "O";
+    });
+    let symbOArr = [];
+    const pushOPos = () =>
+      symbOSelect.forEach((e) => {
+        return symbOArr.push(e.dataValue);
+      })();
+    let symbXArr = [];
+    const pushXPos = () =>
+      symbXSelect.forEach((e) => {
+        return symbXArr.push(e.dataValue);
+      })();
+    console.log(`The positions of the O symbols are: ${symbXSelect}`);
+    console.log(`The positions of the X symbols are: ${symbXSelect}`);
+    return { symbXSelect, symbOSelect, symbOArr, symbXArr, pushOPos, pushXPos };
+  };
+  // const checkDiagonal = () => {
+  //   let diag = gameArray.sequenceArray.filter((i) => {
+  //     let iDv = i.dataValue;
+  //     // let iS = i.symbol;
+  //     return (
+  //       iDv === "1" || iDv === "3" || iDv === "5" || iDv === "7" || iDv === "9"
+  //     );
+  //   });
+  //   let iDv = i.dataValue;
+  //   let diagOne;
+  //   let diagTwo;
+  // };
+  const checkHorizontal = () => {};
+  const checkVertical = () => {};
+  return { filterSymbol /*, checkDiagonal, checkHorizontal, checkVertical*/ };
+})();
+
+// gameArray.sequenceArray.filter(item => {
+//   return item.dataValue === "1" && item.symbol === "X" || "5" && item.symbol === "X" || "9" && item.symbol === "X"})
+
+// AND LAST
 
 // -------------------------------* GAME INTERACTION *-------------------------------
 // eventlistener, when a square is clicked, it will be populated by an X or O icon.
@@ -165,78 +217,6 @@ squareSelector.forEach((item) =>
       console.log("Game Over");
       // gameEngine.gameOver();
     }
+    gameStatus.filterSymbol();
   })
 );
-
-// AND LAST
-
-// -------------------------------* GAME ENGINE *-------------------------------
-
-// const gameEngine = (() => {
-//   const startGame = (() => {
-//     const endGame = () => {
-//       // create dialogue box that declares that the game is over
-//       return null;
-//     };
-//     const checkScore = () => {
-//       // checks the score in an array for each turn.
-//       // if there are three in a row for either the vertical, horizontal, or diagonal
-//       // then the game is over.
-
-//       /*
-//       Diagonal 1,5,9 && 3,5,7
-//       Row 1,2,3 && 4,5,6 && 7,8,9
-//       Column 1,4,7 && 2,5,8 && 3,6,9
-//       */
-//       if (playerTurn.whichRound >= 4){
-//         gameArray.sequenceArray.filter(n => {
-//             console.log(n.symbol)
-//         })
-
-//         } else if (playerTurn.whichRound >= 9) {
-//         console.log("Game over")
-//       }
-//     };
-//     // return gameBoard
-//   })();
-//   return {startGame, checkScore()};
-// })();
-
-const gameStatus = (() => {
-  const checkSymbol = () => {
-    let symbXSelect = gameArray.sequenceArray.filter((i) => {
-      i.symbol === "X";
-    });
-
-    let symbOSelect = gameArray.sequenceArray.filter(i => { return i.symbol === "O"})
-
-    let symbOArr = symbOSelect.forEach((e) => {
-      return symbOArr.push(e.dataValue);
-    });
-    let symbXArr = [];
-    symbXarr = symbXSelect.forEach((e) => {
-      symbXArr.push(e.dataValue);
-    });
-    console.log(`The positions of the O symbols are: ${symbOArr}}`);
-    console.log(`The positions of the X symbols are: ${symbXArr}}`);
-    return { symbXSelect, symbOSelect, symbOArr, symbXArr };
-  };
-  const checkDiagonal = () => {
-    let diag = gameArray.sequenceArray.filter((i) => {
-      let iDv = i.dataValue;
-      // let iS = i.symbol;
-      return (
-        iDv === "1" || iDv === "3" || iDv === "5" || iDv === "7" || iDv === "9"
-      );
-    });
-    let iDv = i.dataValue;
-    let diagOne;
-    let diagTwo;
-  };
-  const checkHorizontal = () => {};
-  const checkVertical = () => {};
-  return { checkSymbol, checkDiagonal, checkHorizontal, checkVertical };
-})();
-
-// gameArray.sequenceArray.filter(item => {
-//   return item.dataValue === "1" && item.symbol === "X" || "5" && item.symbol === "X" || "9" && item.symbol === "X"})

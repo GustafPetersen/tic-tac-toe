@@ -118,47 +118,54 @@ const playerTurn = ((item) => {
 //       Column 1,4,7 && 2,5,8 && 3,6,9
 //       */
 
-const log = (msg) => {
-  console.log(JSON.stringify(msg));
+const log = (msg, varInput) => {
+  console.log(msg, JSON.stringify(varInput));
 };
+
+const logJustVar = (msg) => {
+  console.log(JSON.stringify(msg))
+}
 
 const gameStatus = (() => {
   const filterSymbol = () => {
-    let symbXSelect = gameArray.sequenceArray.filter((i) => {
+    const symbXSelect = gameArray.sequenceArray.filter((i) => {
       return i.symbol === "X";
     });
-    let symbOSelect = gameArray.sequenceArray.filter((i) => {
+    log("The list of objects in symbXSelect array: ", symbXSelect)
+    const symbOSelect = gameArray.sequenceArray.filter((i) => {
       return i.symbol === "O";
     });
+    log("The list of objects in symbXSelect array: ", symbOSelect)
     const symbOArr = symbOSelect.map((oObject => {
       return oObject.dataValue;
     }));
     const symbXArr = symbXSelect.map(xObject => {
       return xObject.dataValue;
     })
-    console.log(
-      `The positions of the O symbols are: ${JSON.stringify(symbXSelect)}`
-    );
-    // log(symbXSelect)
-    console.log(`The positions of the X symbols are: `);
-    log(symbOSelect);
-    return { symbXSelect, symbOSelect, symbOArr, symbXArr };
+    // log SymbOSelect
+    log(`The positions of the O symbols are: `, symbOArr);
+    // log SymbXSelect
+    log(`The positions of the X symbols are: `, symbXArr)
+    // return { symbXSelect, symbOSelect, symbOArr, symbXArr };
   };
-  // const checkDiagonal = () => {
-  //   let diag = gameArray.sequenceArray.filter((i) => {
-  //     let iDv = i.dataValue;
-  //     // let iS = i.symbol;
-  //     return (
-  //       iDv === "1" || iDv === "3" || iDv === "5" || iDv === "7" || iDv === "9"
-  //     );
-  //   });
-  //   let iDv = i.dataValue;
-  //   let diagOne;
-  //   let diagTwo;
-  // };
+  const checkDiagonal = () => {
+    // Check if either the SymbOArr contains positions 1,5,9 or 3,5,7
+    let diagOne = gameStatus.filterSymbol.symbXArr.filter(item => {
+      return item === "1" /*|| "5" || "9";*/
+    })
+    let diagTwo = gameStatus.filterSymbol.symbXArr.filter(item => {
+      return item === "1" /*|| "5" || "9";*/
+    })
+    console.log("The list for X positions in the diagonal are: ")
+    log(diagOne, diagTwo)
+
+    return { diagOne, diagTwo}
+    // if ()
+
+  };
   const checkHorizontal = () => {};
   const checkVertical = () => {};
-  return { filterSymbol /*, checkDiagonal, checkHorizontal, checkVertical*/ };
+  return { filterSymbol, checkDiagonal /*, checkHorizontal, checkVertical*/ };
 })();
 
 // gameArray.sequenceArray.filter(item => {
@@ -222,5 +229,6 @@ squareSelector.forEach((item) =>
       // gameEngine.gameOver();
     }
     gameStatus.filterSymbol();
+    // gameStatus.checkDiagonal();
   })
 );

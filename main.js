@@ -118,6 +118,10 @@ const playerTurn = ((item) => {
 //       Column 1,4,7 && 2,5,8 && 3,6,9
 //       */
 
+const log = (msg) => {
+  console.log(JSON.stringify(msg));
+};
+
 const gameStatus = (() => {
   const filterSymbol = () => {
     let symbXSelect = gameArray.sequenceArray.filter((i) => {
@@ -126,19 +130,19 @@ const gameStatus = (() => {
     let symbOSelect = gameArray.sequenceArray.filter((i) => {
       return i.symbol === "O";
     });
-    let symbOArr = [];
-    const pushOPos = () =>
-      symbOSelect.forEach((e) => {
-        return symbOArr.push(e.dataValue);
-      })();
-    let symbXArr = [];
-    const pushXPos = () =>
-      symbXSelect.forEach((e) => {
-        return symbXArr.push(e.dataValue);
-      })();
-    console.log(`The positions of the O symbols are: ${symbXSelect}`);
-    console.log(`The positions of the X symbols are: ${symbXSelect}`);
-    return { symbXSelect, symbOSelect, symbOArr, symbXArr, pushOPos, pushXPos };
+    const symbOArr = symbOSelect.map((oObject => {
+      return oObject.dataValue;
+    }));
+    const symbXArr = symbXSelect.map(xObject => {
+      return xObject.dataValue;
+    })
+    console.log(
+      `The positions of the O symbols are: ${JSON.stringify(symbXSelect)}`
+    );
+    // log(symbXSelect)
+    console.log(`The positions of the X symbols are: `);
+    log(symbOSelect);
+    return { symbXSelect, symbOSelect, symbOArr, symbXArr };
   };
   // const checkDiagonal = () => {
   //   let diag = gameArray.sequenceArray.filter((i) => {

@@ -123,8 +123,8 @@ const log = (msg, varInput) => {
 };
 
 const logJustVar = (msg) => {
-  console.log(JSON.stringify(msg))
-}
+  console.log(JSON.stringify(msg));
+};
 
 const gameStatus = (() => {
   const filterSymbol = () => {
@@ -136,36 +136,109 @@ const gameStatus = (() => {
       return i.symbol === "O";
     });
     // log("The list of objects in symbXSelect array: ", symbOSelect)
-    const symbOArr = symbOSelect.map((oObject => {
+    const symbOArr = symbOSelect.map((oObject) => {
       return oObject.dataValue;
-    }));
-    const symbXArr = symbXSelect.map(xObject => {
+    });
+    const symbXArr = symbXSelect.map((xObject) => {
       return xObject.dataValue;
-    })
+    });
     // log SymbOSelect
     // log(`The positions of the O symbols are: `, symbOArr);
     // log SymbXSelect
     // log(`The positions of the X symbols are: `, symbXArr)
     return { symbOArr, symbXArr };
   };
-  const checkDiagonal = () => {
-    // Check if either the SymbOArr contains positions 1,5,9 or 3,5,7
-    let diagOne = gameStatus.filterSymbol().symbXArr.filter(item => {
+  const checkDiag = () => {
+    const diagOneX = gameStatus.filterSymbol().symbXArr.filter((item) => {
       return item === "1" || "5" || "9";
-    })
-    let diagTwo = gameStatus.filterSymbol().symbXArr.filter(item => {
-      return item === "1" || "5" || "9";
-    })
-    console.log("The list for X positions in the diagonal are: ")
-    log(diagOne, diagTwo)
+    });
+    const diagTwoX = gameStatus.filterSymbol().symbXArr.filter((item) => {
+      return item === "3" || "5" || "7";
+    });
+    const diagOneO = gameStatus.filterSymbol().symbOArr.filter((item) => {
+      return item === "1" || "5" || "7";
+    });
+    const diagTwoO = gameStatus.filterSymbol().symbOArr.filter((item) => {
+      return item === "3" || "5" || "9";
+    });
+    //log(diagOneX, diagTwoX, diagOneO, diagTwoO)
 
-    return { diagOne, diagTwo}
+    return { diagOneX, diagTwoX, diagOneO, diagTwoO };
     // if ()
-
   };
-  const checkHorizontal = () => {};
-  const checkVertical = () => {};
-  return { filterSymbol, checkDiagonal /*, checkHorizontal, checkVertical*/ };
+  const checkHor = () => {
+    const horOneX = gameStatus.filterSymbol().symbXArr.filter((item) => {
+      return item === "1" || "2" || "3";
+    });
+    const horTwoX = gameStatus.filterSymbol().symbXArr.filter((item) => {
+      return item === "4" || "5" || "6";
+    });
+    const horThreeX = gameStatus.filterSymbol().symbXArr.filter((item) => {
+      return item === "7" || "8" || "9";
+    });
+    const horOneO = gameStatus.filterSymbol().symbOArr.filter((item) => {
+      return item === "1" || "2" || "3";
+    });
+    const horTwoO = gameStatus.filterSymbol().symbOArr.filter((item) => {
+      return item === "4" || "5" || "6";
+    });
+    const horThreeO = gameStatus.filterSymbol().symbOArr.filter((item) => {
+      return item === "7" || "8" || "9";
+    });
+    return { horOneO, horTwoO, horThreeO, horOneX, horTwoX, horThreeX };
+  };
+  const checkVer = () => {
+    const verOneX = gameStatus.filterSymbol().symbXArr.filter((item) => {
+      return item === "1" || "4" || "7";
+    });
+    const verTwoX = gameStatus.filterSymbol().symbXArr.filter((item) => {
+      return item === "2" || "5" || "8";
+    });
+    const verThreeX = gameStatus.filterSymbol().symbXArr.filter((item) => {
+      return item === "3" || "6" || "9";
+    });
+    const verOneO = gameStatus.filterSymbol().symbOArr.filter((item) => {
+      return item === "1" || "4" || "7";
+    });
+    const verTwoO = gameStatus.filterSymbol().symbOArr.filter((item) => {
+      return item === "2" || "5" || "8";
+    });
+    const verThreeO = gameStatus.filterSymbol().symbOArr.filter((item) => {
+      return item === "3" || "6" || "9";
+    });
+    return { verOneO, verTwoO, verThreeO, verOneX, verTwoX, verThreeX };
+  };
+
+  const whoWon = () => {
+    const playerOWon = [
+      gameStatus.checkDiag().diagOneO,
+      gameStatus.checkDiag().diagTwoO,
+      gameStatus.checkHor().horOneO,
+      gameStatus.checkHor().horTwoO,
+      gameStatus.checkHor().horThreeO,
+      gameStatus.checkVer().verOneO,
+      gameStatus.checkVer().verTwoO,
+      gameStatus.checkVer().verThreeO,
+    ];
+    const playerXWon = [
+      gameStatus.checkDiag().diagOneX,
+      gameStatus.checkDiag().diagTwoX,
+      gameStatus.checkHor().horOneX,
+      gameStatus.checkHor().horTwoX,
+      gameStatus.checkHor().horThreeX,
+      gameStatus.checkVer().verOneX,
+      gameStatus.checkVer().verTwoX,
+      gameStatus.checkVer().verThreeX,
+    ];
+
+    // if (playerOWon.find((item) => item >= 3)) {
+    //   console.log("Player O Won the game! Congrats!");
+    // } else if (playerXWon.find((item) => item >= 3)) {
+    //   console.log("Player X Won the game! Congrats!");
+    // }
+    return { playerOWon, playerXWon }
+  };
+  return { filterSymbol, checkDiag, checkHor, checkVer, whoWon};
 })();
 
 // gameArray.sequenceArray.filter(item => {
@@ -177,6 +250,10 @@ const gameStatus = (() => {
 // eventlistener, when a square is clicked, it will be populated by an X or O icon.
 const squareSelector = document.body.querySelectorAll(".player-square");
 // console.log(squareSelector);
+
+const gameInitFunc = () => {
+  // to be fixed.
+};
 
 squareSelector.forEach((item) =>
   item.addEventListener("click", (e) => {
@@ -226,6 +303,6 @@ squareSelector.forEach((item) =>
       // gameEngine.gameOver();
     }
     gameStatus.filterSymbol();
-    // gameStatus.checkDiagonal();
+    gameStatus.whoWon();
   })
 );

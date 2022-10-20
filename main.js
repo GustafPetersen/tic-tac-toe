@@ -131,11 +131,11 @@ const gameStatus = (() => {
     const symbXSelect = gameArray.sequenceArray.filter((i) => {
       return i.symbol === "X";
     });
-    log("The list of objects in symbXSelect array: ", symbXSelect)
+    // log("The list of objects in symbXSelect array: ", symbXSelect)
     const symbOSelect = gameArray.sequenceArray.filter((i) => {
       return i.symbol === "O";
     });
-    log("The list of objects in symbXSelect array: ", symbOSelect)
+    // log("The list of objects in symbXSelect array: ", symbOSelect)
     const symbOArr = symbOSelect.map((oObject => {
       return oObject.dataValue;
     }));
@@ -143,18 +143,18 @@ const gameStatus = (() => {
       return xObject.dataValue;
     })
     // log SymbOSelect
-    log(`The positions of the O symbols are: `, symbOArr);
+    // log(`The positions of the O symbols are: `, symbOArr);
     // log SymbXSelect
-    log(`The positions of the X symbols are: `, symbXArr)
-    // return { symbXSelect, symbOSelect, symbOArr, symbXArr };
+    // log(`The positions of the X symbols are: `, symbXArr)
+    return { symbOArr, symbXArr };
   };
   const checkDiagonal = () => {
     // Check if either the SymbOArr contains positions 1,5,9 or 3,5,7
-    let diagOne = gameStatus.filterSymbol.symbXArr.filter(item => {
-      return item === "1" /*|| "5" || "9";*/
+    let diagOne = gameStatus.filterSymbol().symbXArr.filter(item => {
+      return item === "1" || "5" || "9";
     })
-    let diagTwo = gameStatus.filterSymbol.symbXArr.filter(item => {
-      return item === "1" /*|| "5" || "9";*/
+    let diagTwo = gameStatus.filterSymbol().symbXArr.filter(item => {
+      return item === "1" || "5" || "9";
     })
     console.log("The list for X positions in the diagonal are: ")
     log(diagOne, diagTwo)
@@ -208,9 +208,6 @@ squareSelector.forEach((item) =>
             computerPlayer.playerSymbol,
             computerPlayer.player,
             item.getAttribute("data-value")
-          );
-          console.log(
-            `Function returns: ${playerTurn.decideTurn} and marks an 0.`
           );
         } else {
           console.log(

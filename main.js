@@ -150,16 +150,16 @@ const gameStatus = (() => {
   };
   const checkDiag = () => {
     const diagOneX = gameStatus.filterSymbol().symbXArr.filter((item) => {
-      return item === "1" || "5" || "9";
+      return item === "1" || item === "5" || item ==="9";
     });
     const diagTwoX = gameStatus.filterSymbol().symbXArr.filter((item) => {
-      return item === "3" || "5" || "7";
+      return item === "3" || item === "5" || item === "7";
     });
     const diagOneO = gameStatus.filterSymbol().symbOArr.filter((item) => {
-      return item === "1" || "5" || "7";
+      return item === "1" || item === "5" || item === "7";
     });
     const diagTwoO = gameStatus.filterSymbol().symbOArr.filter((item) => {
-      return item === "3" || "5" || "9";
+      return item === "3" || item === "5" || item === "9";
     });
     //log(diagOneX, diagTwoX, diagOneO, diagTwoO)
 
@@ -168,74 +168,79 @@ const gameStatus = (() => {
   };
   const checkHor = () => {
     const horOneX = gameStatus.filterSymbol().symbXArr.filter((item) => {
-      return item === "1" || "2" || "3";
+      return item === "1" || item === "2" || item === "3";
     });
     const horTwoX = gameStatus.filterSymbol().symbXArr.filter((item) => {
-      return item === "4" || "5" || "6";
+      return item === "4" || item === "5" || item === "6";
     });
     const horThreeX = gameStatus.filterSymbol().symbXArr.filter((item) => {
-      return item === "7" || "8" || "9";
+      return item === "7" || item === "8" || item === "9";
     });
     const horOneO = gameStatus.filterSymbol().symbOArr.filter((item) => {
-      return item === "1" || "2" || "3";
+      return item === "1" || item === "2" || item === "3";
     });
     const horTwoO = gameStatus.filterSymbol().symbOArr.filter((item) => {
-      return item === "4" || "5" || "6";
+      return item === "4" || item === "5" || item === "6";
     });
     const horThreeO = gameStatus.filterSymbol().symbOArr.filter((item) => {
-      return item === "7" || "8" || "9";
+      return item === "7" || item === "8" || item === "9";
     });
     return { horOneO, horTwoO, horThreeO, horOneX, horTwoX, horThreeX };
   };
   const checkVer = () => {
     const verOneX = gameStatus.filterSymbol().symbXArr.filter((item) => {
-      return item === "1" || "4" || "7";
+      return item === "1" || item === "4" || item === "7";
     });
     const verTwoX = gameStatus.filterSymbol().symbXArr.filter((item) => {
-      return item === "2" || "5" || "8";
+      return item === "2" || item === "5" || item === "8";
     });
     const verThreeX = gameStatus.filterSymbol().symbXArr.filter((item) => {
-      return item === "3" || "6" || "9";
+      return item === "3" || item === "6" || item === "9";
     });
     const verOneO = gameStatus.filterSymbol().symbOArr.filter((item) => {
-      return item === "1" || "4" || "7";
+      return item === "1" || item === "4" || item === "7";
     });
     const verTwoO = gameStatus.filterSymbol().symbOArr.filter((item) => {
-      return item === "2" || "5" || "8";
+      return item === "2" || item === "5" || item === "8";
     });
     const verThreeO = gameStatus.filterSymbol().symbOArr.filter((item) => {
-      return item === "3" || "6" || "9";
+      return item === "3" || item === "6" || item === "9";
     });
     return { verOneO, verTwoO, verThreeO, verOneX, verTwoX, verThreeX };
   };
 
   const whoWon = () => {
     const playerOWon = [
-      gameStatus.checkDiag().diagOneO,
-      gameStatus.checkDiag().diagTwoO,
-      gameStatus.checkHor().horOneO,
-      gameStatus.checkHor().horTwoO,
-      gameStatus.checkHor().horThreeO,
-      gameStatus.checkVer().verOneO,
-      gameStatus.checkVer().verTwoO,
-      gameStatus.checkVer().verThreeO,
+      gameStatus.checkDiag().diagOneO.length,
+      gameStatus.checkDiag().diagTwoO.length,
+      gameStatus.checkHor().horOneO.length,
+      gameStatus.checkHor().horTwoO.length,
+      gameStatus.checkHor().horThreeO.length,
+      gameStatus.checkVer().verOneO.length,
+      gameStatus.checkVer().verTwoO.length,
+      gameStatus.checkVer().verThreeO.length,
     ];
     const playerXWon = [
-      gameStatus.checkDiag().diagOneX,
-      gameStatus.checkDiag().diagTwoX,
-      gameStatus.checkHor().horOneX,
-      gameStatus.checkHor().horTwoX,
-      gameStatus.checkHor().horThreeX,
-      gameStatus.checkVer().verOneX,
-      gameStatus.checkVer().verTwoX,
-      gameStatus.checkVer().verThreeX,
+      gameStatus.checkDiag().diagOneX.length,
+      gameStatus.checkDiag().diagTwoX.length,
+      gameStatus.checkHor().horOneX.length,
+      gameStatus.checkHor().horTwoX.length,
+      gameStatus.checkHor().horThreeX.length,
+      gameStatus.checkVer().verOneX.length,
+      gameStatus.checkVer().verTwoX.length,
+      gameStatus.checkVer().verThreeX.length,
     ];
+    
+    const gameOverTimeout = (playerWonMsg) => setTimeout(playerWonMsg, 200)
 
-    // if (playerOWon.find((item) => item >= 3)) {
-    //   console.log("Player O Won the game! Congrats!");
-    // } else if (playerXWon.find((item) => item >= 3)) {
-    //   console.log("Player X Won the game! Congrats!");
-    // }
+    if (playerOWon.find((item) => item >= 3)) {
+      const playerOWonGameMsg = alert("Player O Won the game! Congrats!");
+      gameOverTimeout(playerOWonGameMsg);
+      
+    } else if (playerXWon.find((item) => item >= 3)) {
+      const playerXWonGameMsg = alert("Player X Won the game! Congrats!");
+      gameOverTimeout(playerXWonGameMsg);
+    }
     return { playerOWon, playerXWon }
   };
   return { filterSymbol, checkDiag, checkHor, checkVer, whoWon};

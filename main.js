@@ -142,29 +142,22 @@ const gameStatus = (() => {
     const symbXArr = symbXSelect.map((xObject) => {
       return xObject.dataValue;
     });
-    // log SymbOSelect
-    // log(`The positions of the O symbols are: `, symbOArr);
-    // log SymbXSelect
-    // log(`The positions of the X symbols are: `, symbXArr)
     return { symbOArr, symbXArr };
   };
   const checkDiag = () => {
     const diagOneX = gameStatus.filterSymbol().symbXArr.filter((item) => {
-      return item === "1" || item === "5" || item ==="9";
+      return item === "1" || item === "5" || item === "9";
     });
     const diagTwoX = gameStatus.filterSymbol().symbXArr.filter((item) => {
       return item === "3" || item === "5" || item === "7";
     });
     const diagOneO = gameStatus.filterSymbol().symbOArr.filter((item) => {
-      return item === "1" || item === "5" || item === "7";
+      return item === "1" || item === "5" || item === "9";
     });
     const diagTwoO = gameStatus.filterSymbol().symbOArr.filter((item) => {
-      return item === "3" || item === "5" || item === "9";
+      return item === "3" || item === "5" || item === "7";
     });
-    //log(diagOneX, diagTwoX, diagOneO, diagTwoO)
-
     return { diagOneX, diagTwoX, diagOneO, diagTwoO };
-    // if ()
   };
   const checkHor = () => {
     const horOneX = gameStatus.filterSymbol().symbXArr.filter((item) => {
@@ -230,20 +223,19 @@ const gameStatus = (() => {
       gameStatus.checkVer().verTwoX.length,
       gameStatus.checkVer().verThreeX.length,
     ];
-    
-    const gameOverTimeout = (playerWonMsg) => setTimeout(playerWonMsg, 200)
+
+    const gameOverTimeout = (playerWonMsg) => setTimeout(playerWonMsg, 200);
 
     if (playerOWon.find((item) => item >= 3)) {
       const playerOWonGameMsg = alert("Player O Won the game! Congrats!");
       gameOverTimeout(playerOWonGameMsg);
-      
     } else if (playerXWon.find((item) => item >= 3)) {
       const playerXWonGameMsg = alert("Player X Won the game! Congrats!");
       gameOverTimeout(playerXWonGameMsg);
     }
-    return { playerOWon, playerXWon }
+    return { playerOWon, playerXWon };
   };
-  return { filterSymbol, checkDiag, checkHor, checkVer, whoWon};
+  return { filterSymbol, checkDiag, checkHor, checkVer, whoWon };
 })();
 
 // gameArray.sequenceArray.filter(item => {
@@ -307,7 +299,6 @@ squareSelector.forEach((item) =>
       console.log("Game Over");
       // gameEngine.gameOver();
     }
-    gameStatus.filterSymbol();
-    gameStatus.whoWon();
+    gameStatus.filterSymbol(), gameStatus.whoWon();
   })
 );

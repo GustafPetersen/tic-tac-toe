@@ -3,9 +3,8 @@ html {
     padding: 0;
     width: 100%;
     height: 100%;
-    background: #000067;
-    background: linear-gradient(338deg, #00006790 75%, #8d538d 110%);
-
+    background: rgb(156,163,175);
+    background: linear-gradient(150deg, rgba(156,163,175,1) 0%, rgba(55,65,81,1) 67%, rgba(17,24,39,1) 100%);
 }
 body {
     display: flex;

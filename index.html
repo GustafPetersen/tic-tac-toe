@@ -8,14 +8,27 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="startGame">
+        <div id="startModal">
+            <h2>Select Player</h2>
+            <div class="playerSelection">
+                <button class="players" id="X"></button>
+                <button class="players" id="O"></button>
+            </div>
+        </div>
+    </div>
+    <div id="endGame">
+        <div id="endModal">
+            <button id="restartButton">
+                Restart
+            </button>
+
+        </div>
+    </div>
     <h1 id="page-header">
         A Game of Tic-Tac-Toe
     </h1>
-    <h3>Select Player</h3>
-    <div class="playerSelection">
-        <button class="players" id="X"></button>
-        <button class="players" id="O"></button>
-    </div>
+
     <div id="tic-tac-toe">
         <div id="square-1" class="player-square" data-value="1"></div>
         <div id="square-2" class="player-square" data-value="2"></div>

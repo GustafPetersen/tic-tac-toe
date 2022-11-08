@@ -4,6 +4,14 @@ const playerSelect = (player, playerSymbol) => {
 
 let humanPlayer;
 let computerPlayer;
+const startGame = document.body.querySelector("#startGame");
+const endGame = document.querySelector("#endGame");
+const endModal = document.querySelector("#endModal");
+const restartBtn = document.querySelector("#restartButton")
+const loadRestart = () => {
+  window.location.reload()
+}
+restartBtn.addEventListener("click", loadRestart)
 
 const selectPlayerButtons = document.body.querySelectorAll(".players");
 selectPlayerButtons.forEach((item) =>
@@ -14,11 +22,13 @@ selectPlayerButtons.forEach((item) =>
         selectPlayerButtons[1].id,
         "computerplayer"
       );
+      startGame.style = "display: none;";
     } else {
       computerPlayer = playerSelect(
         selectPlayerButtons[0].id,
         "computerplayer"
       );
+      startGame.style = "display: none;";
     }
     console.log(humanPlayer);
     console.log(computerPlayer);
@@ -31,6 +41,7 @@ const gameArray = (() => {
   let sequenceArray = [];
   const gameSequence = (player, symbol, dataValue) => {
     let obj = { player, symbol, dataValue };
+    console.log(`The object that will return: ${JSON.stringify(obj)}`);
     return gameArray.sequenceArray.push(obj);
   };
   return { gameSequence, sequenceArray };
@@ -224,14 +235,35 @@ const gameStatus = (() => {
       gameStatus.checkVer().verThreeX.length,
     ];
 
-    const gameOverTimeout = (playerWonMsg) => setTimeout(playerWonMsg, 200);
+    const gameOverTimeout = (playerWonMsg) => setTimeout(playerWonMsg, 10000);
+
+    const endMsgFunc =  (txt) => {
+      const createWinMsg = document.createElement("h2");
+      createWinMsg.setAttribute("id", "winMessage")
+      const createInnerTxt = (txt)  => {
+        return txt
+      }
+      createWinMsg.innerText = createInnerTxt(txt)
+      endModal.appendChild(createWinMsg)
+    }
 
     if (playerOWon.find((item) => item >= 3)) {
-      const playerOWonGameMsg = alert("Player O Won the game! Congrats!");
-      gameOverTimeout(playerOWonGameMsg);
-    } else if (playerXWon.find((item) => item >= 3)) {
-      const playerXWonGameMsg = alert("Player X Won the game! Congrats!");
-      gameOverTimeout(playerXWonGameMsg);
+      endMsgFunc("Player O Won the game! Congrats!");
+      const playerOWonModal = () => endGame.style = "display: flex;"
+      setTimeout(playerOWonModal, 280);
+      clearTimeout()
+    } 
+    if (playerXWon.find((item) => item >= 3)) {
+      endMsgFunc("Player X Won the game! Congrats!")
+      const playerXWonModal = () =>  endGame.style = "display: flex;"
+      setTimeout(playerXWonModal, 280);
+      clearTimeout()
+    }
+    if (playerTurn.whichRound > 9) {
+      endMsgFunc("It's a tie!")
+      const noPlayerWonModal = () => endGame.style = "display: flex;"
+      setTimeout(noPlayerWonModal, 280);
+      clearTimeout()
     }
     return { playerOWon, playerXWon };
   };
@@ -268,21 +300,40 @@ squareSelector.forEach((item) =>
             humanPlayer.player,
             item.getAttribute("data-value")
           );
-          gameArray.gameSequence(
-            humanPlayer.playerSymbol,
-            humanPlayer.player,
-            item.getAttribute("data-value")
-          );
+          if (humanPlayer.player === "X") {
+            gameArray.gameSequence(
+              humanPlayer.playerSymbol,
+              humanPlayer.player,
+              item.getAttribute("data-value")
+            );
+          }
+          if (computerPlayer.player === "X") {
+            gameArray.gameSequence(
+              computerPlayer.playerSymbol,
+              computerPlayer.player,
+              item.getAttribute("data-value")
+            );
+          }
+
           // console.log(
           //   `Function returns: ${playerTurn.decideTurn} and marks an X.`
           // );
         } else if (checkTurn) {
           playerTurn.decideTurn.optionTwo(item);
-          gameArray.gameSequence(
-            computerPlayer.playerSymbol,
-            computerPlayer.player,
-            item.getAttribute("data-value")
-          );
+          if (humanPlayer.player === "O") {
+            gameArray.gameSequence(
+              humanPlayer.playerSymbol,
+              humanPlayer.player,
+              item.getAttribute("data-value")
+            );
+          }
+          if (computerPlayer.player === "O") {
+            gameArray.gameSequence(
+              computerPlayer.playerSymbol,
+              computerPlayer.player,
+              item.getAttribute("data-value")
+            );
+          }
         } else {
           console.log(
             "The box has been selected before ... it is getting: " +
@@ -302,3 +353,4 @@ squareSelector.forEach((item) =>
     gameStatus.filterSymbol(), gameStatus.whoWon();
   })
 );
+

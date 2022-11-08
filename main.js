@@ -235,8 +235,6 @@ const gameStatus = (() => {
       gameStatus.checkVer().verThreeX.length,
     ];
 
-    const gameOverTimeout = (playerWonMsg) => setTimeout(playerWonMsg, 10000);
-
     const endMsgFunc =  (txt) => {
       const createWinMsg = document.createElement("h2");
       createWinMsg.setAttribute("id", "winMessage")
@@ -252,14 +250,12 @@ const gameStatus = (() => {
       const playerOWonModal = () => endGame.style = "display: flex;"
       setTimeout(playerOWonModal, 280);
       clearTimeout()
-    } 
-    if (playerXWon.find((item) => item >= 3)) {
+    } else if (playerXWon.find((item) => item >= 3)) {
       endMsgFunc("Player X Won the game! Congrats!")
       const playerXWonModal = () =>  endGame.style = "display: flex;"
       setTimeout(playerXWonModal, 280);
       clearTimeout()
-    }
-    if (playerTurn.whichRound > 9) {
+    } else if (playerTurn.whichRound > 9) {
       endMsgFunc("It's a tie!")
       const noPlayerWonModal = () => endGame.style = "display: flex;"
       setTimeout(noPlayerWonModal, 280);

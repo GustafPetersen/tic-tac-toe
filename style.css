@@ -90,12 +90,12 @@ body {
     border-radius: 20px;
     font-size: 1rem;
     font-weight: 550;
-    box-shadow: -1.25px -2.5px 10px grey inset;
+    box-shadow: -1.25px -2.5px 10px #242a36 inset;
 }
 
 #restartButton:hover {
-    background-color: #404651;
-    box-shadow: 1.25px 1.5px 15px grey;
+    background-color: #434f65;
+    box-shadow: 1.25px 1.5px 15px #24282e;
 
 }
 
